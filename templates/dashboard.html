@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>销售数据可视化大屏</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+<!-- 设计稿 1920x1080，通过 transform 缩放适配 -->
+<div id="screen">
+
+    <!-- 顶部标题栏 -->
+    <header class="header">
+        <div class="header-left">
+            <span id="headerTime">--:--:--</span>
+            <span id="updateTime">数据更新 --</span>
+        </div>
+        <div class="header-center">
+            <h1 class="header-title">销售数据可视化大屏</h1>
+            <div class="header-sub">SALES DATA VISUALIZATION</div>
+        </div>
+        <div class="header-right">酒水饮料事业部</div>
+    </header>
+
+    <!-- 核心指标 KPI -->
+    <section class="kpi-row" id="kpiRow"></section>
+
+    <!-- 三栏主体 -->
+    <main class="main">
+
+        <!-- 左栏：销售明细 / 地区占比 / 产品排行 -->
+        <aside class="col">
+            <div class="panel">
+                <div class="panel-title">📋 销售明细</div>
+                <div class="detail-head">
+                    <span>日期</span><span>省份</span><span>产品</span><span>渠道</span><span class="ta-r">销售额(元)</span>
+                </div>
+                <div class="list-wrap detail-wrap"><ul class="list-inner" id="detailList"></ul></div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">🥧 地区占比</div>
+                <div class="chart" id="provincePie"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">📦 产品排行</div>
+                <div class="chart" id="productBar"></div>
+            </div>
+        </aside>
+
+        <!-- 中栏：中国地图 + 月度趋势 -->
+        <section class="center">
+            <div class="panel map-panel">
+                <div class="panel-title">🗺 全国销售分布</div>
+                <div class="chart" id="chinaMap"></div>
+            </div>
+            <div class="panel trend-panel">
+                <div class="panel-title">📈 月度销售趋势</div>
+                <div class="chart" id="trendChart"></div>
+            </div>
+        </section>
+
+        <!-- 右栏：渠道占比 / 利润进度 / 地区热榜 -->
+        <aside class="col">
+            <div class="panel">
+                <div class="panel-title">🍩 渠道占比</div>
+                <div class="chart" id="channelPie"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">💰 利润进度</div>
+                <div class="progress-wrap" id="profitProgress"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">🔥 地区热榜</div>
+                <div class="list-wrap hot-wrap"><ul class="list-inner" id="hotList"></ul></div>
+            </div>
+        </aside>
+
+    </main>
+</div>
+
+<script src="/static/js/echarts.min.js"></script>
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>

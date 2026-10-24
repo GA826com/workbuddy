@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>猪八戒网接单作战包 · 杨明</title>
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --ink:#1b1f24;
+    --ink-2:#4a5361;
+    --ink-3:#7b8493;
+    --line:#e3e7ec;
+    --brand:#1e5c4f;
+    --brand-soft:#e8f1ee;
+    --accent:#c2701c;
+    --accent-soft:#fdf2e3;
+    --danger:#b3402f;
+    --danger-soft:#fbeceb;
+    --ok:#2f7a5b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.75;font-size:15px;
+    padding:0 0 80px;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:0 20px}
+
+  header{
+    background:linear-gradient(135deg,#1e5c4f 0%,#2b7a67 100%);
+    color:#fff;padding:44px 0 38px;margin-bottom:28px;
+  }
+  header .wrap{display:block}
+  h1{font-size:27px;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+  .sub{font-size:14px;opacity:.88;line-height:1.7}
+  .meta{margin-top:16px;font-size:13px;opacity:.8}
+
+  section{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:26px 28px;margin-bottom:20px;
+  }
+  h2{
+    font-size:19px;font-weight:700;color:var(--brand);
+    margin-bottom:6px;display:flex;align-items:center;gap:9px;
+  }
+  h2 .num{
+    background:var(--brand);color:#fff;width:26px;height:26px;border-radius:7px;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:600;flex:none;
+  }
+  .lead{color:var(--ink-3);font-size:13.5px;margin-bottom:18px;padding-left:35px}
+
+  h3{font-size:15.5px;font-weight:650;margin:20px 0 10px;color:var(--ink)}
+  h3:first-of-type{margin-top:4px}
+  p{color:var(--ink-2);margin-bottom:10px}
+  strong{color:var(--ink);font-weight:650}
+  ul{margin:8px 0 10px 20px;color:var(--ink-2)}
+  li{margin-bottom:6px}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th{
+    background:var(--brand-soft);color:var(--brand);font-weight:650;
+    text-align:left;padding:10px 12px;border-bottom:2px solid #cfe0da;
+  }
+  td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:center;white-space:nowrap}
+
+  .stars{color:var(--accent);letter-spacing:1px;font-size:13px}
+  .stars .off{color:#d6dbe1}
+
+  .copy-box{
+    position:relative;background:#fbfcfd;border:1px solid var(--line);
+    border-radius:9px;padding:16px 18px;margin:12px 0;
+  }
+  .copy-box .label{
+    font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.4px;
+    margin-bottom:8px;text-transform:uppercase;
+  }
+  .copy-box pre{
+    white-space:pre-wrap;word-break:break-word;font-family:inherit;
+    font-size:14px;color:var(--ink);line-height:1.85;
+  }
+  .copy-btn{
+    position:absolute;top:12px;right:12px;
+    background:var(--card);border:1px solid var(--line);color:var(--brand);
+    font-size:12px;padding:4px 11px;border-radius:6px;cursor:pointer;
+    font-weight:600;transition:.15s;
+  }
+  .copy-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .copy-btn.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+
+  .callout{
+    border-left:3px solid var(--brand);background:var(--brand-soft);
+    padding:13px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px;color:var(--ink-2);
+  }
+  .callout.warn{border-left-color:var(--accent);background:var(--accent-soft);color:#7a4a12}
+  .callout.stop{border-left-color:var(--danger);background:var(--danger-soft);color:#8a2f22}
+  .callout b{color:var(--ink)}
+  .callout.warn b{color:#7a4a12}
+  .callout.stop b{color:#8a2f22}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .mini{
+    border:1px solid var(--line);border-radius:9px;padding:14px 16px;background:#fcfdfe;
+  }
+  .mini h4{font-size:14px;color:var(--brand);margin-bottom:6px;font-weight:650}
+  .mini p{font-size:13.5px;margin:0;color:var(--ink-2)}
+
+  .tag{
+    display:inline-block;background:var(--brand-soft);color:var(--brand);
+    font-size:12.5px;padding:3px 10px;border-radius:20px;margin:3px 5px 3px 0;font-weight:600;
+  }
+  .tag.grey{background:#eef0f3;color:var(--ink-3)}
+
+  .money{font-variant-numeric:tabular-nums;font-weight:650;color:var(--ink)}
+
+  .timeline{border-left:2px solid var(--line);padding-left:20px;margin-left:8px}
+  .tl-item{position:relative;margin-bottom:18px}
+  .tl-item::before{
+    content:'';position:absolute;left:-27px;top:7px;width:11px;height:11px;
+    border-radius:50%;background:var(--brand);border:2px solid #fff;box-shadow:0 0 0 2px var(--brand-soft);
+  }
+  .tl-item h4{font-size:14.5px;color:var(--ink);margin-bottom:4px}
+  .tl-item .when{font-size:12px;color:var(--accent);font-weight:650;margin-bottom:3px}
+
+  .fill{background:#fff3cd;padding:0 4px;border-radius:3px;color:#8a6d1f;font-weight:600}
+
+  footer{text-align:center;color:var(--ink-3);font-size:12.5px;padding:30px 20px 0}
+
+  @media(max-width:680px){
+    .grid2{grid-template-columns:1fr}
+    section{padding:20px 18px}
+    h1{font-size:22px}
+    .lead{padding-left:0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>猪八戒网接单作战包</h1>
+    <div class="sub">为「初中语文教师 + 公众号主理人 + AI 重度使用者」这一技能组合定制<br>
+    预算档位：500–2000 元 ｜ 主攻：文案代写 · 课件/PPT · AI 应用服务</div>
+    <div class="meta">生成于 2026-10-16 ｜ 所有行情数据基于当日平台公开信息</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 1 -->
+<section>
+  <h2><span class="num">1</span>匹配度测算：三个方向，你该怎么排</h2>
+  <div class="lead">先说结论——不要平均用力。三个方向在平台上的处境完全不同，打法也不一样。</div>
+
+  <table>
+    <tr>
+      <th>方向</th><th class="num">需求规模</th><th class="num">竞争烈度</th>
+      <th class="num">你的先天优势</th><th class="num">出单速度</th><th class="num">客单价</th>
+    </tr>
+    <tr>
+      <td><strong>文案代写</strong></td>
+      <td class="num"><span class="stars">★★★★★</span></td>
+      <td class="num"><span class="stars">★★★★<span class="off">★</span></span></td>
+      <td class="num"><span class="stars">★★★★<span class="off">★</span></span></td>
+      <td class="num"><span class="stars">★★★★★</span></td>
+      <td class="num"><span class="stars">★★★<span class="off">★★</span></span></td>
+    </tr>
+    <tr>
+      <td><strong>课件 / PPT 定制</strong></td>
+      <td class="num"><span class="stars">★★★★★</span></td>
+      <td class="num"><span class="stars">★★★★<span class="off">★</span></span></td>
+      <td class="num"><span class="stars">★★★★★</span></td>
+      <td class="num"><span class="stars">★★★<span class="off">★★</span></span></td>
+      <td class="num"><span class="stars">★★★★<span class="off">★</span></span></td>
+    </tr>
+    <tr>
+      <td><strong>AI 应用服务</strong></td>
+      <td class="num"><span class="stars">★★★<span class="off">★★</span></span></td>
+      <td class="num"><span class="stars">★★<span class="off">★★★</span></span></td>
+      <td class="num"><span class="stars">★★★★<span class="off">★</span></span></td>
+      <td class="num"><span class="stars">★★<span class="off">★★★</span></span></td>
+      <td class="num"><span class="stars">★★★★★</span></td>
+    </tr>
+  </table>
+
+  <h3>排兵布阵</h3>
+  <ul>
+    <li><strong>主攻 · 文案代写</strong>——用来<em>跑通账号</em>。它出单最快、需求最密，但客单价偏低、竞争最卷。你的任务不是靠它赚钱，而是靠它<strong>在 60 天内刷满 10 条五星评价</strong>，把账号权重拉起来。</li>
+    <li><strong>第二曲线 · 课件/PPT</strong>——你的<em>真正利润区</em>。"一线教师"这四个字在教育类、培训类课件需求里是天然信任状，同行很难伪装。客单价是文案的 2–5 倍。</li>
+    <li><strong>溢价武器 · AI 应用服务</strong>——不单独卖，<em>打包进前两项</em>。这是你相对同行的降维打击：别人写稿要一整天，你用工作流 1–2 小时出稿，同样的报价你能接 3 倍的单量，或者同样的时间赚 3 倍的钱。</li>
+  </ul>
+
+  <div class="callout">
+    <b>核心策略一句话：</b>用文案单养账号权重 → 用教师身份吃课件溢价 → 用 AI 工作流把交付成本压到同行的一半。三者是串联关系，不是并列关系。
+  </div>
+
+  <div class="callout warn">
+    <b>关于低价陷阱：</b>平台上已经出现"AI 量产"报价——小红书文案 15–40 元/条、公众号长文 50–150 元/篇。<b>不要跳进去</b>。这条赛道比的是谁更能不要钱，最后谁都不赚钱。你的定位应该是"懂教育的专业文案"，而不是"便宜的 AI 代写"。
+  </div>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2><span class="num">2</span>2000 元预算怎么花，多久回本</h2>
+  <div class="lead">先把账算清楚。这决定了你该不该投，以及投了之后要有怎样的心理预期。</div>
+
+  <table>
+    <tr><th>支出项</th><th class="num">金额</th><th>说明</th></tr>
+    <tr><td>类目保证金</td><td class="num"><span class="money">¥1000</span></td><td>文案/设计类目常见档位。<strong>可退</strong>，但退店后冻结 3 个月。缴了才能进"放心购"、雇主信任度明显提升</td></tr>
+    <tr><td>商机豆（投标费）</td><td class="num"><span class="money">¥600</span></td><td>1 豆 ≈ 1 元，约 20–30 次投标机会。<strong>不中标不退</strong>，这是纯沉没成本</td></tr>
+    <tr><td>作品集包装</td><td class="num"><span class="money">¥300</span></td><td>课件样张精修、案例排版、正版字体/素材授权</td></tr>
+    <tr><td>机动预留</td><td class="num"><span class="money">¥100</span></td><td>加急素材、临时改稿成本</td></tr>
+    <tr style="background:#fafbfc"><td><strong>实际消耗成本</strong></td><td class="num"><span class="money">¥1000</span></td><td>保证金 1000 可退，不计入真实损耗</td></tr>
+  </table>
+
+  <h3>回本测算（保守口径）</h3>
+  <table>
+    <tr><th>项目</th><th class="num">保守</th><th class="num">中性</th></tr>
+    <tr><td>投出标书数</td><td class="num">25 次</td><td class="num">25 次</td></tr>
+    <tr><td>新手中标率</td><td class="num">8%（2 单）</td><td class="num">12%（3 单）</td></tr>
+    <tr><td>平均客单价</td><td class="num">¥400</td><td class="num">¥600</td></tr>
+    <tr><td>成交额</td><td class="num">¥800</td><td class="num">¥1800</td></tr>
+    <tr><td>扣平台抽成 20%</td><td class="num">−¥160</td><td class="num">−¥360</td></tr>
+    <tr><td>减商机豆成本</td><td class="num">−¥600</td><td class="num">−¥600</td></tr>
+    <tr style="background:var(--accent-soft)"><td><strong>首轮净收益</strong></td><td class="num"><strong style="color:#b3402f">−¥600</strong></td><td class="num"><strong style="color:#2f7a5b">+¥840</strong></td></tr>
+  </table>
+
+  <div class="callout stop">
+    <b>必须讲清楚的一件事：</b>第一轮大概率<b>不赚钱，甚至小亏</b>。你花 600 元商机豆买的不是订单，是<b>账号权重和评价数</b>。真正开始盈利是第 2–3 轮——届时中标率能从 10% 提到 25–35%，且不再需要靠低价抢单。如果你的预期是"投 2000 当月赚回 5000"，这个盘不成立。
+  </div>
+
+  <div class="callout">
+    <b>节流技巧（能省一半商机豆）：</b>
+    <ul style="margin-bottom:0">
+      <li>平台每天送 <strong>1 次免费投标机会</strong>，务必每天都用掉，一个月就是 30 次白嫖</li>
+      <li>优先投<strong>竞标人数 &lt; 20 人</strong>的任务，人多的标基本是陪跑</li>
+      <li>同时走<strong>被动接单</strong>：店铺挂服务商品，雇主主动找上门，不消耗商机豆</li>
+      <li>早期只投<strong>预算 ≥ 你心理价 60%</strong> 的单，宁缺毋滥</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <h2><span class="num">3</span>主页装修：直接复制这四段文案</h2>
+  <div class="lead">主页是转化率的生死线。有无作品集，雇主停留时长差 3 倍（45 秒 vs 2.5 分钟）。以下文案可直接粘贴。</div>
+
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">昵称建议（选一个）</div>
+    <pre>① 语文杨老师 | 教育文案·课件定制
+② 杨明文案工作室 | 教师执笔
+③ 教坛笔杆子 | 课件+文案双修</pre>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-3);margin-top:-4px">⚠️ 昵称不要出现真实校名，避免职务身份与商业行为绑定。</p>
+
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">个人简介 · 主版本（文案 + 课件双定位）</div>
+    <pre>一线初中语文教师，中小学一级职称，15 年笔耕不辍。
+自主运营健康科普公众号，日更长文 400+ 篇，熟悉从选题到成稿的完整内容生产链路。
+
+【我能帮你做什么】
+· 教育类文案：教案、说课稿、申报材料、演讲稿、校园宣传稿
+· 公文与职场文本：述职报告、工作总结、心得体会、主持词
+· 商业内容：品牌软文、公众号推文、产品文案、短视频脚本
+· 教学课件：希沃课件、培训课件、企业内训 PPT 定制
+
+【我的交付特点】
+- 教师出身，文字功底扎实，逻辑与规范性强，不写口水稿
+- 熟练运用 AI 工具辅助创作，效率是同行的 2–3 倍，交期有保障
+- 每单含 2 次免费修改，交付即提供源文件
+- 承诺：先沟通、后动笔；不满意，改到满意为止
+
+【服务承诺】
+文案类稿件均原创写作，可过查重；交付前自行校对三遍，错别字率控制在万分之三以内。</pre>
+  </div>
+
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">技能标签（后台逐条添加，影响搜索曝光）</div>
+    <pre>软文写作 · 公众号推文 · 演讲稿 · 述职报告 · 工作总结 · 心得体会
+教案编写 · 说课稿 · 申报材料 · 校园宣传稿
+课件制作 · 希沃课件 · PPT定制 · PPT美化 · 培训课件
+AI写作 · AI提示词 · AI课件设计 · 内容润色 · 文案策划</pre>
+  </div>
+
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">服务商品标题（SEO 关键词导向，各建一个商品）</div>
+    <pre>① 【教师执笔】教育类文案代写｜教案/说课稿/申报材料/演讲稿
+② 【一线教师】希沃课件定制｜教学PPT｜赛课课件·含配套教案
+③ 【原创可查重】公众号推文/品牌软文代写｜48小时交付·含2次修改
+④ 【教师专属】述职报告/工作总结/心得体会代写｜体制内文风·规范严谨
+⑤ AI辅助高效交付｜企业培训课件定制｜20页起·含逻辑梳理与视觉设计</pre>
+  </div>
+
+  <div class="callout">
+    <b>作品集怎么凑：</b>初期没客户案例不丢人，用这三类"自有素材"顶上——① 你的《春》精品课完整课件（这是硬货，教育类雇主一眼认得出水平）；② 公众号往期爆款文章 3–5 篇（证明持续产出能力）；③ 自制的 3 套不同风格 PPT 样张（商务汇报风 / 教育培训风 / 简约学术风）。上传 5–8 件即可，重质不重量。
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <h2><span class="num">4</span>投标自荐书模板：三套，填空即用</h2>
+  <div class="lead">自荐书决定雇主是否点开你的主页。<span class="fill">黄色部分</span>按实际情况替换，其余照抄。核心原则：<strong>第一句必须证明你读懂了他的需求</strong>。</div>
+
+  <h3>模板 A · 文案代写类</h3>
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">A-文案</div>
+    <pre>您好，我仔细看了您的需求，理解您需要的是一篇<span class="fill">【复述对方核心诉求，一句话说清】</span>。
+
+关于这一点，我的判断是<span class="fill">【给出一个专业建议，比如"受众是家长，所以语气要温和但不能显得不专业"】</span>——如果您认可这个方向，我可以按此推进；若与您的想法有出入，我们在开工前对齐即可，不额外计费。
+
+【我的匹配度】
+· 一线初中语文教师，中小学一级职称，常年从事文本写作与审阅
+· 自主运营公众号 400+ 篇原创长文，熟悉<span class="fill">【对应领域，如教育/健康/职场】</span>类内容的表达节奏
+· 已交付同类稿件 <span class="fill">【数量】</span> 篇，客户好评率 100%
+
+【交付方案】
+第 1 天：需求确认 + 大纲框架，您确认后我再动笔
+第 2 天：提交初稿
+第 3 天：根据反馈修改定稿（含 2 次免费修改）
+交付物：Word 正文 + 可查重报告
+
+【报价与保障】
+报价 <span class="fill">【金额】</span> 元，工期 <span class="fill">【天数】</span> 天。原创写作，绝不套模板、不用 AI 直接生成交付；如需加急可压缩至 <span class="fill">【时间】</span>，费用另议。
+
+期待合作，我已在平台完成实名认证，可随时电话沟通细节。</pre>
+  </div>
+
+  <h3>模板 B · 课件 / PPT 定制类</h3>
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">B-课件</div>
+    <pre>您好，我是<span class="fill">【姓名】</span>，一线初中语文教师，中小学一级职称，参与过市级精品课录制与评选，日常主做教学课件与希沃交互课件。
+
+看到您的需求是<span class="fill">【课程/培训主题】</span>，受众是<span class="fill">【受众描述】</span>。这类课件的通病是"内容堆砌但讲不顺畅"，我的做法是：<strong>先搭逻辑骨架，再做视觉呈现</strong>——先和您确认一页纸的内容大纲，确保讲的人顺、听的人懂，然后才进入设计环节。这能帮您省掉至少两轮返工。
+
+【我能提供】
+· 逻辑梳理：把您的原始素材整理成有起承转合的叙述线
+· 视觉设计：<span class="fill">【风格，如简约学术/商务大气/活泼教育】</span>，含图表、图示、版式统一
+· 教学适配：如为教学场景，可加互动环节设计、板书逻辑、课堂节奏标注
+· 源文件交付：PPTX 可编辑源文件 + 字体说明，方便您后续自行修改
+
+【交付节奏】
+第 1 天：大纲确认
+第 <span class="fill">【N】</span> 天：初稿（含 <span class="fill">【页数】</span> 页）
+第 <span class="fill">【N+1】</span> 天：定稿（含 2 次修改）
+
+报价 <span class="fill">【金额】</span> 元，工期 <span class="fill">【天数】</span> 天。附上我的精品课课件样张，供您判断风格是否匹配。</pre>
+  </div>
+
+  <h3>模板 C · AI 应用服务类（高客单，走"效率"卖点）</h3>
+  <div class="copy-box">
+    <button class="copy-btn" onclick="cp(this)">复制</button>
+    <div class="label">C-AI服务</div>
+    <pre>您好。您的需求本质是<span class="fill">【把对方需求翻译成一个效率问题，如"每月要稳定产出 20 篇合规科普内容，但人力跟不上"】</span>。
+
+这不是"找人写几篇"能解决的，需要一套<strong>可复用的生产体系</strong>。我提供的不是单次稿件，而是：
+
+① <strong>专属内容工作流</strong>：根据您的品牌调性定制提示词与写作模板，固定输出标准，保证风格统一、无同质化
+② <strong>批量交付能力</strong>：单篇从需求到成稿压缩至 1–2 小时，可承接月度包量
+③ <strong>人工把关</strong>：AI 出稿后由我逐篇审校润色，确保事实准确、无 AI 味、可过查重
+④ <strong>交付文档</strong>：附赠整套提示词与操作说明，您团队后续可自己上手，不再依赖外包
+
+【适用您当前的情况】
+按您 <span class="fill">【数量】</span> 篇/月的量，人工外包月成本约 <span class="fill">【金额】</span> 元；采用本方案为 <span class="fill">【金额】</span> 元，且交付周期缩短 <span class="fill">【X】</span>%。
+
+报价 <span class="fill">【金额】</span> 元，含 <span class="fill">【内容】</span>。可先做 1 篇样稿验收，满意再签整包——样稿不满意不收费。</pre>
+  </div>
+
+  <div class="callout warn">
+    <b>投递后 30 分钟内必须主动联系雇主</b>（平台 IM 或虚拟电话）。大量雇主是"谁先联系就给谁"，响应速度对中标率的影响超过报价本身。这是最容易做到、也最常被忽略的一步。
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <h2><span class="num">5</span>报价表：分档定价，别报裸价</h2>
+  <div class="lead">永远不要只报一个数字。三档报价是行业惯例——它让雇主在"比价"时总有一款能接住，同时把最高档作为锚点抬高心理预期。</div>
+
+  <h3>文案类</h3>
+  <table>
+    <tr><th>品类</th><th class="num">基础版</th><th class="num">标准版</th><th class="num">尊享版</th></tr>
+    <tr><td>公众号推文（1500 字内）</td><td class="num">¥200<br><span style="font-size:12px;color:#7b8493">成稿交付</span></td><td class="num">¥400<br><span style="font-size:12px;color:#7b8493">含选题+排版</span></td><td class="num">¥800<br><span style="font-size:12px;color:#7b8493">含配图方案+数据复盘</span></td></tr>
+    <tr><td>品牌软文 / 商业稿</td><td class="num">¥300</td><td class="num">¥700</td><td class="num">¥1500</td></tr>
+    <tr><td>演讲稿 / 主持词</td><td class="num">¥250</td><td class="num">¥500</td><td class="num">¥1000</td></tr>
+    <tr><td>述职报告 / 工作总结</td><td class="num">¥300</td><td class="num">¥600</td><td class="num">¥1200</td></tr>
+    <tr><td>教案 / 说课稿（含课件逻辑）</td><td class="num">¥400</td><td class="num">¥800</td><td class="num">¥1600</td></tr>
+    <tr><td>短视频脚本</td><td class="num">¥150/条</td><td class="num">¥400/条</td><td class="num">¥1000/套(5条)</td></tr>
+  </table>
+
+  <h3>课件 / PPT 类</h3>
+  <table>
+    <tr><th>档位</th><th class="num">单价（每页）</th><th>说明</th></tr>
+    <tr><td>模板美化型</td><td class="num"><span class="money">¥40–60</span></td><td>客户提供完整文字稿，我做排版美化。走量用，不接也罢</td></tr>
+    <tr><td>标准设计型</td><td class="num"><span class="money">¥80–150</span></td><td>含逻辑梳理 + 图表制作 + 版式设计。<strong>主推档位</strong></td></tr>
+    <tr><td>高端定制型</td><td class="num"><span class="money">¥200–350</span></td><td>赛课课件、希沃交互课件、含动画与原创图示。<strong>你的利润区</strong></td></tr>
+  </table>
+  <p style="font-size:13.5px">参考行情：平台上基础美化 20–150 元/页，标准设计 50–350 元/页，高端定制 150–2000 元/页。你的定位卡在<strong>标准设计上沿、高端定制下沿</strong>，既有竞争力又不掉价。</p>
+
+  <div class="callout">
+    <b>增值项单独收费</b>（这是拉高客单的关键）：加急交付 +50%~150% ｜ 第 3 次起修改 +30% ｜ 内容代写 +199 元/页 ｜ 数据图表制作 +50 元/图表 ｜ 源文件 + 版权转让协议 +10%。<br>
+    这些必须在<strong>合同备注里写死</strong>，否则后期改稿会吃掉你全部利润。
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2><span class="num">6</span>避坑清单：什么单不接，什么话不能信</h2>
+  <div class="lead">平台上真正的风险不在"没单接"，而在"接错单"。以下每一条都是别人的学费。</div>
+
+  <h3>四类单，直接跳过</h3>
+  <div class="grid2">
+    <div class="mini"><h4>✗ 需求模糊单</h4><p>"做个PPT，预算面谈""先出个方案看看"——没有交付标准的单，验收时必定扯皮</p></div>
+    <div class="mini"><h4>✗ 超低价单</h4><p>50 元设计 Logo、100 元写 5000 字——不是练手，是被白嫖，且拉低你的账号客单标签</p></div>
+    <div class="mini"><h4>✗ 竞标 &gt; 50 人的单</h4><p>大概率是虚假需求或陪跑，雇主可能只为收集创意方案。你的商机豆不该花在这</p></div>
+    <div class="mini"><h4>✗ 24 小时急单</h4><p>平台统计急单违约率高达 42%。教师身份本就时间有限，急单是最大的翻车源</p></div>
+  </div>
+
+  <h3>四条防骗铁律</h3>
+  <ul>
+    <li><strong>绝不预付任何费用给"雇主"</strong>——正规流程里服务商不需要交押金、保证金、预付款。凡是开口要钱的，100% 是诈骗</li>
+    <li><strong>沟通全程留在站内 IM</strong>——微信/QQ 沟通无记录，一旦纠纷无法维权，且脱离平台会被扣保证金甚至封号</li>
+    <li><strong>赏金必须托管到平台才开工</strong>——雇主口头承诺"做完一起结"的，一律不动笔</li>
+    <li><strong>身份证照片加水印</strong>——实名认证提交证件时，加注"仅供猪八戒网实名认证使用"字样，防止被挪作他用</li>
+  </ul>
+
+  <h3>验收与回款保障</h3>
+  <ul>
+    <li>合同里写死三件事：<strong>交付标准、修改次数、超次如何计费</strong></li>
+    <li>分阶段交付 + 分阶段沟通，每 2 天主动发一次进度截图，能显著降低雇主焦虑和最终争议</li>
+    <li>交付后 72 小时内阶梯式提醒验收；雇主失联可申请平台仲裁，凭聊天记录维权</li>
+    <li>大额单（&gt;2000 元）争取 30% 预付 + 40% 中期 + 30% 尾款</li>
+  </ul>
+
+  <div class="callout warn">
+    <b>关于你的教师身份，有三条边界要守住：</b>① 不影响本职教学，不占用工作时间；② 不使用学校的教材、课件、试题等职务成果作为商业交付物（你自己的原创作品不受此限）；③ 主页和沟通中不以学校名义背书，避免职务身份与商业行为绑定。守住这三条，合规上没有任何问题。
+  </div>
+</section>
+
+<!-- 7 -->
+<section>
+  <h2><span class="num">7</span>90 天执行节奏</h2>
+  <div class="lead">别想着一步到位。这个节奏是按"先活着，再长大"设计的。</div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="when">第 1–2 周 · 打地基</div>
+      <h4>注册服务商 → 实名认证 → 缴保证金 → 装修主页</h4>
+      <p>把第 3 节的文案全部填进去，上传 5–8 件作品（《春》课件 + 公众号文章 + 3 套 PPT 样张）。<strong>这周一分钱不投，只做被动接单</strong>——发布 3–5 个服务商品，等雇主找上门。</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">第 3–6 周 · 刷评价</div>
+      <h4>每天用掉 1 次免费投标，另外精选 2–3 个标付费投</h4>
+      <p>只投竞标人数 &lt; 20、预算达标、需求清晰的单。目标：<strong>拿下 5–8 单，全部冲五星好评</strong>。这阶段可以适当让利，用价格换评价——评价数就是后面的定价权。</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">第 7–10 周 · 提客单</div>
+      <h4>评价数 ≥ 10 条后，把报价整体上调 30%</h4>
+      <p>开始主推课件/PPT 标准档与高端档（80–350 元/页），文案单只接 ≥ 400 元的。同时把 AI 工作流跑通——此时你的交付效率应该是同行的 2 倍以上，接单量可以放开。</p>
+    </div>
+    <div class="tl-item">
+      <div class="when">第 11–13 周 · 建私域</div>
+      <h4>把 3–5 个满意客户转成长期合作</h4>
+      <p>平台上的成熟服务商，收入大头来自老客户复购。推出"月度包量"服务（如每月 8 篇推文 ¥3000），锁定稳定现金流。<strong>注意：续约走平台内下单，不要私下交易。</strong></p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>三个月后的合理预期：</b>月成交 6–10 单，客单价 500–1200 元，月流水 4000–8000 元，扣除抽成到手 3200–6400 元。这是中性偏保守的估计，做到需要每周稳定投入 8–12 小时。宣称"轻松月入过万"的，基本都是卖课的。
+  </div>
+</section>
+
+<footer>
+  本作战包基于 2026-10-16 的公开行情数据整理 · 平台规则会变，投标前请以猪八戒网后台最新公告为准
+</footer>
+
+</div>
+
+<script>
+function cp(btn){
+  var box = btn.closest('.copy-box');
+  var pre = box.querySelector('pre');
+  var text = pre.innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    var old = btn.innerText;
+    btn.innerText = '已复制';
+    btn.classList.add('done');
+    setTimeout(function(){ btn.innerText = old; btn.classList.remove('done'); }, 1600);
+  }).catch(function(){
+    var r = document.createRange();
+    r.selectNodeContents(pre);
+    var s = window.getSelection();
+    s.removeAllRanges(); s.addRange(r);
+    btn.innerText = '请手动复制';
+    setTimeout(function(){ btn.innerText = '复制'; }, 1600);
+  });
+}
+</script>
+
+</body>
+</html>

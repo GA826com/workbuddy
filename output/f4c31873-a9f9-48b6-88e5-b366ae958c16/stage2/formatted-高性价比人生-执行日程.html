@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="docx-page-size" content="A4">
+<title>高性价比人生 · 执行日程</title>
+<style>
+:root {
+  --page-content-width: var(--layout-maxContentWidth, 15.6cm);
+  --fs-h2: var(--typography-fontSize-h2, 15pt);
+  --fs-h3: var(--typography-fontSize-h3, 13pt);
+  --fs-body: 12pt;
+  --fs-table: 10pt;
+  --fs-small: var(--typography-fontSize-small, 9pt);
+  --fs-cover-title: 26pt;
+  --fs-cover-sub: 12pt;
+  --fs-cover-meta: 10.5pt;
+  --fs-toc: 11pt;
+  --fs-toc-title: var(--typography-fontSize-h3, 14pt);
+  --ff-body: "SimSun", "宋体", "Microsoft YaHei", sans-serif;
+  --ff-heading: "Microsoft YaHei", "微软雅黑", "SimSun", sans-serif;
+  --lh-body: var(--typography-lineHeight-body, 1.7);
+  --color-primary: #2563EB;
+  --color-text: #111827;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-highlight: #F5F7FA;
+  --color-bg: #FFFFFF;
+  --sp-1: 0.25em;
+  --sp-2: 0.5em;
+  --sp-3: 0.75em;
+  --sp-4: 1em;
+  --sp-5: 1.5em;
+  --sp-6: 2em;
+  --sp-7: 3em;
+  --sp-px-1: 4px;
+  --sp-px-2: 6px;
+  --sp-px-3: 8px;
+  --sp-px-4: 10px;
+  --sp-px-5: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  max-width: var(--page-content-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p { font-family: var(--ff-body); font-size: var(--fs-body); line-height: var(--lh-body); text-indent: 2em; margin-bottom: var(--sp-2); text-align: justify; }
+
+h2 { font-family: var(--ff-heading); font-size: var(--fs-h2); font-weight: 700; color: var(--color-text); line-height: 1.3; text-indent: 0; margin-top: var(--sp-5); margin-bottom: var(--sp-2); padding-bottom: var(--sp-px-2); border-bottom: 1px solid var(--color-border); }
+h3 { font-family: var(--ff-heading); font-size: var(--fs-h3); font-weight: 700; color: var(--color-text); line-height: 1.3; text-indent: 0; margin-top: var(--sp-4); margin-bottom: var(--sp-2); }
+
+table { border-collapse: collapse; width: 100%; margin: var(--sp-2) 0 var(--sp-4) 0; }
+th, td { border: 1px solid var(--color-border); padding: var(--sp-px-2) var(--sp-px-3); font-family: var(--ff-body); font-size: var(--fs-table); line-height: 1.5; text-align: left; text-indent: 0; vertical-align: middle; }
+th { background: var(--color-highlight); font-family: var(--ff-heading); font-weight: 700; }
+td p, th p { text-indent: 0; margin-bottom: 0; font-size: var(--fs-table); text-align: left; }
+caption { caption-side: top; font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-muted); text-align: left; padding-bottom: var(--sp-px-1); }
+
+ul, ol { padding-left: var(--sp-6); margin-bottom: var(--sp-2); }
+li { font-family: var(--ff-body); font-size: var(--fs-body); line-height: var(--lh-body); margin-bottom: var(--sp-1); text-align: justify; }
+
+.note { text-indent: 0; background: var(--color-highlight); border-left: 3px solid var(--color-primary); padding: var(--sp-px-4) var(--sp-px-5); margin: var(--sp-2) 0 var(--sp-4) 0; text-align: left; }
+.lead { text-indent: 2em; color: var(--color-text); }
+
+.cover-eyebrow { text-align: center; text-indent: 0; font-family: var(--ff-heading); font-size: var(--fs-small); letter-spacing: 3px; color: var(--color-muted); margin-bottom: var(--sp-5); }
+.cover-title { text-align: center; text-indent: 0; font-family: var(--ff-heading); font-size: var(--fs-cover-title); font-weight: 700; line-height: 1.35; color: var(--color-text); margin-bottom: var(--sp-2); }
+.cover-subtitle { text-align: center; text-indent: 0; font-family: var(--ff-heading); font-size: var(--fs-cover-sub); color: var(--color-muted); margin-bottom: var(--sp-7); }
+.cover-meta { text-align: center; text-indent: 0; font-family: var(--ff-body); font-size: var(--fs-cover-meta); color: var(--color-muted); margin-bottom: var(--sp-1); }
+
+.doc-toc { padding: 0; background: var(--color-bg); }
+.toc-title { text-align: left; text-indent: 0; font-family: var(--ff-heading); font-size: var(--fs-toc-title); font-weight: 700; margin-bottom: var(--sp-3); }
+.toc-list, .toc-list ol, .toc-list ul { list-style: none; list-style-type: none; padding-left: 0; }
+.toc-list li { text-indent: 0; font-size: var(--fs-toc); line-height: 2; border-bottom: 1px dotted var(--color-border); }
+.toc-list a { color: var(--color-text); text-decoration: none; }
+
+@page { @bottom-center { content: counter(page); } }
+@page cover { @bottom-center { content: none; } }
+section[role="cover"] { page: cover; }
+</style>
+</head>
+<body>
+
+<section role="cover">
+  <p class="cover-eyebrow">日程表 · 可直接打印</p>
+  <p class="cover-title">高性价比人生<br>执行日程</p>
+  <p class="cover-subtitle">每日骨架 · 每周节奏 · 每月复盘 · 30 天启动</p>
+  <p class="cover-meta">适用：教师 / 内容创作者</p>
+  <p class="cover-meta">2026 年 10 月</p>
+</section>
+
+<section role="cover">
+<nav class="doc-toc" aria-label="文档目录">
+  <p class="toc-title">目录</p>
+  <ol class="toc-list">
+    <li><a href="#section-1">一、怎么用这份日程</a></li>
+    <li><a href="#section-2">二、每日日程</a></li>
+    <li><a href="#section-3">三、每周节奏</a></li>
+    <li><a href="#section-4">四、每月固定动作</a></li>
+    <li><a href="#section-5">五、一鱼三吃：一次投入，四种产出</a></li>
+    <li><a href="#section-6">六、30 天启动表</a></li>
+    <li><a href="#section-7">七、每日打卡表</a></li>
+    <li><a href="#section-8">八、月度复盘</a></li>
+    <li><a href="#section-9">九、学期与假期的双节奏</a></li>
+    <li><a href="#section-10">十、卡住了怎么办</a></li>
+    <li><a href="#section-11">十一、唯一要记住的一句话</a></li>
+  </ol>
+</nav>
+</section>
+
+<section role="body" data-page-restart="1">
+
+<h2 id="section-1">一、怎么用这份日程</h2>
+<p>这份日程不是让你更忙，而是把有限的精力，压到回报最高的几件事上。它的设计前提是：人不可能长期靠意志力运转，只能靠固定的时间锚点。</p>
+<p class="note">&nbsp;&nbsp;<strong>使用原则只有一条：</strong>同一时间只改一件事，改到不用意志力也能做到，再动下一件。</p>
+<p>在此基础上，遵守四条操作规则：</p>
+<ol>
+  <li><strong>只锚定三个时间点</strong>：固定的起床时间、固定的深度两小时、固定的断网点。其余时间允许弹性。</li>
+  <li><strong>允许打八折</strong>：做到 80% 就算成功。追求满分的计划，通常活不过第 11 天。</li>
+  <li><strong>每周只改一件事</strong>：周一选定，周日复盘，不同时开五个战场。</li>
+  <li><strong>断掉不补</strong>：漏了一天，第二天照常继续。补作业是放弃的前兆。</li>
+</ol>
+
+<h2 id="section-2">二、每日日程</h2>
+<p>一天的结构比一天的时长更重要。下面这张表只安排四个不可让位的时间点，其余时间交给课堂与生活。</p>
+<h3>（一）工作日（周一至周五）</h3>
+<table>
+  <thead>
+    <tr><th style="width:16%">时间</th><th style="width:34%">动作</th><th style="width:12%">时长</th><th style="width:10%">资产层</th><th style="width:28%">完成标准</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>06:30</td><td>起床，不赖床、不摸手机</td><td>—</td><td>L1</td><td>闹钟响后 5 分钟内起身</td></tr>
+    <tr><td>06:40–07:10</td><td>快走或力量训练（隔天）</td><td>30 分钟</td><td>L1</td><td>出汗即可，不追求强度</td></tr>
+    <tr><td>07:10–07:30</td><td>早餐 + 读 10 页，读完写一句“能用在哪儿”</td><td>20 分钟</td><td>L3</td><td>有一句自己的批注</td></tr>
+    <tr><td>07:30–17:30</td><td>教学与事务（现金流）</td><td>—</td><td>L4</td><td>当天课务不留尾</td></tr>
+    <tr><td>12:40–13:00</td><td>午间快走 10 分钟，或闭眼静坐</td><td>20 分钟</td><td>L1</td><td>下午不靠咖啡撑</td></tr>
+    <tr><td>19:30–21:30</td><td>深度两小时：写作、备课资产化、内容创作</td><td>120 分钟</td><td>L2</td><td>手机放在另一个房间</td></tr>
+    <tr><td>21:30–21:50</td><td>写 200 字：今天想明白了什么</td><td>20 分钟</td><td>L3</td><td>不修改、不发布、不追求文采</td></tr>
+    <tr><td>22:30</td><td>手机放到客厅，断网</td><td>—</td><td>L1</td><td>物理隔离，不是静音</td></tr>
+    <tr><td>23:00</td><td>睡觉</td><td>—</td><td>L1</td><td>保证 7 小时以上</td></tr>
+  </tbody>
+</table>
+<p class="lead">说明：深度两小时是一天里唯一“能留下东西”的时段，其他时间都在处理噪音。这两个小时一旦被占用，等于这一天没有产出。</p>
+
+<h3>（二）周末版</h3>
+<table>
+  <thead>
+    <tr><th style="width:18%">时间</th><th style="width:40%">动作</th><th style="width:42%">说明</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>07:30</td><td>起床（比工作日延后 1 小时，不超）</td><td>补觉靠早睡，不靠晚起</td></tr>
+    <tr><td>08:30–10:30</td><td>深度两小时（放在上午）</td><td>上午的深度质量高于晚上</td></tr>
+    <tr><td>10:30–11:30</td><td>一鱼三吃：本周课堂/素材 → 一条内容</td><td>见第五节</td></tr>
+    <tr><td>下午</td><td>家务、陪伴、运动，不安排工作</td><td>恢复也是任务</td></tr>
+    <tr><td>20:00–20:15</td><td>周复盘：本周留下了什么</td><td>只记事实，不评判自己</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-3">三、每周节奏</h2>
+<table>
+  <thead>
+    <tr><th style="width:12%">星期</th><th style="width:14%">主题</th><th style="width:74%">具体动作</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>周一</td><td>定方向</td><td>用 5 分钟定下“本周唯一改进项”，写在便签上</td></tr>
+    <tr><td>周二</td><td>力量</td><td>20 分钟力量训练 + 选一个内容选题</td></tr>
+    <tr><td>周三</td><td>产出</td><td>一鱼三吃：把本周一堂课变成一条内容</td></tr>
+    <tr><td>周四</td><td>力量</td><td>20 分钟力量训练 + 发布周三做的内容</td></tr>
+    <tr><td>周五</td><td>回看</td><td>10 分钟看数据，只记“哪句被反复转发”，不做情绪判断</td></tr>
+    <tr><td>周六</td><td>资产</td><td>深度两小时做资产型工作：课程、资源包、成体系稿子</td></tr>
+    <tr><td>周日</td><td>休息</td><td>完全休息，晚上预览下周安排 10 分钟</td></tr>
+  </tbody>
+</table>
+<p class="note">&nbsp;&nbsp;<strong>判断一周是否合格，只看一句：</strong>这周有没有留下下个月还能用的东西。</p>
+
+<h2 id="section-4">四、每月固定动作</h2>
+<table>
+  <thead>
+    <tr><th style="width:26%">时间</th><th style="width:56%">动作</th><th style="width:18%">耗时</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>每月 1 日</td><td>自动转出收入的 10%，当它不存在</td><td>已设自动，0 分钟</td></tr>
+    <tr><td>每月最后一个周日</td><td>五问自检（见第八节）</td><td>15 分钟</td></tr>
+    <tr><td>每季度末</td><td>检查应急金是否够 3–6 个月开支</td><td>5 分钟</td></tr>
+    <tr><td>每学期末</td><td>盘点：哪些产出可复用，哪些是一次性消耗</td><td>30 分钟</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-5">五、一鱼三吃：一次投入，四种产出</h2>
+<table>
+  <thead>
+    <tr><th style="width:20%">环节</th><th style="width:52%">产物</th><th style="width:28%">额外耗时</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>原始投入</td><td>一堂课 / 一次备课</td><td>已有</td></tr>
+    <tr><td>第一次转化</td><td>教案、课件（可复用模板）</td><td>+20 分钟</td></tr>
+    <tr><td>第二次转化</td><td>短视频脚本（3 条，每屏一句话）</td><td>+20 分钟</td></tr>
+    <tr><td>第三次转化</td><td>公众号文章（1500 字，带方法和案例）</td><td>+40 分钟</td></tr>
+  </tbody>
+</table>
+<p class="lead">同样的智力投入，四种产物。判断标准是：这件事做完，三个月后还能不能再用一次。</p>
+
+<h2 id="section-6">六、30 天启动表</h2>
+<table>
+  <thead>
+    <tr><th style="width:12%">周次</th><th style="width:40%">只加这一件</th><th style="width:34%">完成标志</th><th style="width:14%">完成</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>第 1 周</td><td>固定起床 + 睡前 1 小时断短视频</td><td>连续 5 天做到</td><td>□</td></tr>
+    <tr><td>第 2 周</td><td>每天 20 分钟快走 + 2 次力量</td><td>完成 3 次快走</td><td>□</td></tr>
+    <tr><td>第 3 周</td><td>每天 200 字，连写 7 天</td><td>7 篇，不管好坏</td><td>□</td></tr>
+    <tr><td>第 4 周</td><td>把最好的一篇做成可复用产物</td><td>一篇成稿或一条脚本</td><td>□</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-7">七、每日打卡表</h2>
+<p class="lead">建议打印使用，一周一张，只打勾不写评语。</p>
+<table>
+  <thead>
+    <tr><th style="width:30%">项目</th><th style="width:10%">一</th><th style="width:10%">二</th><th style="width:10%">三</th><th style="width:10%">四</th><th style="width:10%">五</th><th style="width:10%">六</th><th style="width:10%">日</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>固定时间起床</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+    <tr><td>运动 20 分钟以上</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+    <tr><td>深度两小时</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+    <tr><td>写 200 字</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+    <tr><td>睡前 1 小时断网</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+    <tr><td>睡够 7 小时</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td><td>□</td></tr>
+  </tbody>
+</table>
+<p class="note">&nbsp;&nbsp;<strong>打分口径：</strong>一周打满 30 个勾为满分，21 个勾（70%）即合格。不要追求满格。</p>
+
+<h2 id="section-8">八、月度复盘</h2>
+<table>
+  <thead>
+    <tr><th style="width:44%">问题</th><th style="width:28%">本月答案</th><th style="width:28%">下月调整</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1. 这个月平均睡够了吗</td><td></td><td></td></tr>
+    <tr><td>2. 运动了几次</td><td></td><td></td></tr>
+    <tr><td>3. 深度时间累计多少小时</td><td></td><td></td></tr>
+    <tr><td>4. 留下了什么可复用的东西</td><td></td><td></td></tr>
+    <tr><td>5. 现金比上月多了还是少了</td><td></td><td></td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-9">九、学期与假期的双节奏</h2>
+<table>
+  <thead>
+    <tr><th style="width:26%">时段</th><th style="width:16%">定位</th><th style="width:30%">保底动作</th><th style="width:28%">目标</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>学期中（3–6 月、9–1 月）</td><td>做现金流</td><td>深度 1.5 小时、每周 1 条内容</td><td>教学不出错，更新不断档</td></tr>
+    <tr><td>假期（寒暑假）</td><td>做资产</td><td>每天 3 小时深度</td><td>攒下一门课、一个资源包、一批稿子</td></tr>
+  </tbody>
+</table>
+<p class="lead">假期的三小时，决定下个学期的从容程度。学期拼的是稳定，假期拼的是积累。</p>
+
+<h2 id="section-10">十、卡住了怎么办</h2>
+<table>
+  <thead>
+    <tr><th style="width:34%">情况</th><th style="width:66%">处理方式</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>断了一天</td><td>第二天照常，不补、不自责</td></tr>
+    <tr><td>连续三天断</td><td>标准降到三分之一，先恢复节奏再加量</td></tr>
+    <tr><td>一个月没起色</td><td>只保留两件：固定起床 + 写 200 字</td></tr>
+    <tr><td>想全部推翻重来</td><td>说明标准定高了，回到第七节的打卡表，只打勾不加项</td></tr>
+  </tbody>
+</table>
+
+<h2 id="section-11">十一、唯一要记住的一句话</h2>
+<p>复利最残酷的地方在于：前 29 天，它看起来毫无作用。</p>
+<p>所以不要问“有没有效果”，只问“今天有没有打勾”。打满 30 天，再谈效果。</p>
+
+</section>
+</body>
+</html>
